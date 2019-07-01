@@ -25,10 +25,7 @@
         <skipTests>true</skipTests>
         <java.version>1.8</java.version>
 
-        <!--beetlsql版本-->
-        <beetlsql.version>2.11.0</beetlsql.version>
-        <!--beetl版本-->
-        <beetl.version>2.9.10</beetl.version>
+
     </properties>
 
     <dependencies>
@@ -41,6 +38,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--web依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -58,10 +56,20 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!--beetLSQL依赖-->
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl-framework-starter</artifactId>
+            <version>1.1.60.RELEASE</version>
+        </dependency>
 
 
     </dependencies>
+
 
     <build>
         <plugins>
