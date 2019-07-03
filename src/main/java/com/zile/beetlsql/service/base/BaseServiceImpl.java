@@ -1,15 +1,15 @@
 package com.zile.beetlsql.service.base;
 
 import com.zile.beetlsql.common.utils.EmptyUtil;
-import com.zile.beetlsql.model.User;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.db.KeyHolder;
 import org.beetl.sql.core.mapper.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
+
 
 /**
  * 通用serviceImpl
@@ -25,6 +25,11 @@ public abstract class BaseServiceImpl<T> {
         return this.baseMapper;
     }
 
+
+    /**
+     *
+     * @return  返回一个SQLManager对象
+     */
     public SQLManager getBaseMapperSQLManager(){
         return this.baseMapper.getSQLManager();
     }
@@ -81,7 +86,8 @@ public abstract class BaseServiceImpl<T> {
     }
 
     /**
-     * 根据主键删除对象，如果对象是复合主键，传入对象本生即可
+     * 根据主键删除对象，如果对象是复合主键，传入对象本身即可
+     * (物理删除，不建议使用)
      *
      * @param key   该对象对应数据库的主键，一般都是id
      * @return      返回0为失败，返回1为成功
@@ -95,6 +101,7 @@ public abstract class BaseServiceImpl<T> {
             return 0;
         }
     }
+
 
     /**
      * 根据主键获取对象，如果对象不存在，返回null
@@ -140,5 +147,34 @@ public abstract class BaseServiceImpl<T> {
     public long templateCount(T entity){
         return getBaseMapper().templateCount(entity);
     }
+
+
+    /**
+     * 模板查询，返回符合模板得所有结果。beetlsql将取出非null值（日期类型排除在外），从数据库找出完全匹配的结果集
+     * (精确查询)
+     *
+     * @param entity    实体对象
+     * @param start     返回记录行的偏移量(初始记录行的偏移量是 1(而不是 0))
+     * @param size      记录行的最大数目
+     *
+     * @return          返回对象列表为查询结果
+     */
+   public List<T> findTemplateList(T entity,int start,int size){
+        return getBaseMapper().template(entity,start,size);
+   }
+
+    /**
+     * 模板查询，返回符合模板得所有结果。beetlsql将取出非null值（日期类型排除在外），从数据库找出完全匹配的结果集
+     * (精确查询)
+     *
+     * @param entity    实体对象
+     *
+     * @return          返回对象列表为查询结果
+     */
+    public List<T> findTemplateList(T entity){
+        return getBaseMapper().template(entity);
+    }
+
+
 
 }
