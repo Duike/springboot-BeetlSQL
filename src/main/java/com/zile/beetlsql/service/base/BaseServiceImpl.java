@@ -115,7 +115,7 @@ public abstract class BaseServiceImpl<T> {
 
 
     /**
-     * 根据字段判断该数据是否存在
+     * 根据字段的信息判断该数据是否存在
      * (例如:用于新建时的name字段不重复等)
      *
      * @param entity    实体对象
@@ -128,6 +128,7 @@ public abstract class BaseServiceImpl<T> {
         }
         return result;
     }
+
 
     /**
      * 返回实体在数据库里的总数
@@ -148,6 +149,16 @@ public abstract class BaseServiceImpl<T> {
         return getBaseMapper().templateCount(entity);
     }
 
+    /**
+     * 模板查询，返回符合模板得一条结果
+     * （精确查询）
+     *
+     * @param entity    实体对象
+     * @return
+     */
+    public T templateOne(T entity){
+        return (T) getBaseMapper().templateOne(entity);
+    }
 
     /**
      * 模板查询，返回符合模板得所有结果。beetlsql将取出非null值（日期类型排除在外），从数据库找出完全匹配的结果集

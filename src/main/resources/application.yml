@@ -6,9 +6,21 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    database: 0 # 0-15db
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 1200
+    # Jedis的配置,可以不配置,有默认值（RedisProperties类中有指定默认值）
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1
 
 beetlsql:
   sqlPath: /sql
   basePackage: com.zile.beetlsql.mapper
-
 

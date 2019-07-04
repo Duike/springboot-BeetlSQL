@@ -7,16 +7,23 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-07-01
+* gen by beetlsql 2019-07-04
 */
 @Table(name="test_demo.user")
 public class User   {
 	
+	/*
+	id
+	*/
 	private Integer id ;
 	/*
 	年龄
 	*/
 	private Integer age ;
+	/*
+	1 表示正常显示，0 表示删除
+	*/
+	private Integer isActive ;
 	/*
 	用户角色
 	*/
@@ -25,6 +32,10 @@ public class User   {
 	姓名
 	*/
 	private String name ;
+	/*
+	用户密码
+	*/
+	private String password ;
 	/*
 	用户名称
 	*/
@@ -37,9 +48,17 @@ public class User   {
 	public User() {
 	}
 	
+	/**
+	* id
+	*@return 
+	*/
 	public Integer getId(){
 		return  id;
 	}
+	/**
+	* id
+	*@param  id
+	*/
 	public void setId(Integer id ){
 		this.id = id;
 	}
@@ -57,6 +76,21 @@ public class User   {
 	*/
 	public void setAge(Integer age ){
 		this.age = age;
+	}
+	
+	/**
+	* 1 表示正常显示，0 表示删除
+	*@return 
+	*/
+	public Integer getIsActive(){
+		return  isActive;
+	}
+	/**
+	* 1 表示正常显示，0 表示删除
+	*@param  isActive
+	*/
+	public void setIsActive(Integer isActive ){
+		this.isActive = isActive;
 	}
 	
 	/**
@@ -87,6 +121,21 @@ public class User   {
 	*/
 	public void setName(String name ){
 		this.name = name;
+	}
+	
+	/**
+	* 用户密码
+	*@return 
+	*/
+	public String getPassword(){
+		return  password;
+	}
+	/**
+	* 用户密码
+	*@param  password
+	*/
+	public void setPassword(String password ){
+		this.password = password;
 	}
 	
 	/**
