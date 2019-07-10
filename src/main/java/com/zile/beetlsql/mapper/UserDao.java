@@ -7,7 +7,7 @@ import com.zile.beetlsql.model.*;
 
 /*
 * 
-* gen by beetlsql mapper 2019-07-04
+* gen by beetlsql mapper 2019-07-10
 */
 public interface UserDao extends BaseMapper<User> {
 	

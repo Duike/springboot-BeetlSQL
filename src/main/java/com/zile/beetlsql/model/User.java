@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /* 
 * 
-* gen by beetlsql 2019-07-04
+* gen by beetlsql 2019-07-10
 */
 @Table(name="test_demo.user")
 public class User   {
