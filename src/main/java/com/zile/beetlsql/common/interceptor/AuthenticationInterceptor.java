@@ -50,6 +50,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (method.isAnnotationPresent(UserLoginToken.class)) {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
             if (userLoginToken.required()) {
+                // TODO: 2019/7/12 0012  修改tokeb判断返回方式，不要用异常返回
                 // 执行认证
                 if (token == null) {
                     throw new RuntimeException("无token，请重新登录！");

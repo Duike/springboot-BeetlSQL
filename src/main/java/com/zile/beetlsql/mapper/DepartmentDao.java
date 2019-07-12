@@ -9,6 +9,6 @@ import com.zile.beetlsql.model.*;
 * 
 * gen by beetlsql mapper 2019-07-12
 */
-public interface UserDao extends BaseMapper<User> {
+public interface DepartmentDao extends BaseMapper<Department> {
 	
 }

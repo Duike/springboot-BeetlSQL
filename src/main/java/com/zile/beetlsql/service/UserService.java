@@ -6,11 +6,11 @@ import com.zile.beetlsql.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 /**
- * Created by zileShi on 2019/7/1 0001.
- **/
+*
+* UserService
+* Created on 2019年07月12日 10:02:36
+**/
 @Service
 public class UserService extends BaseServiceImpl<User> {
 
