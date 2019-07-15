@@ -2,7 +2,12 @@ package com.zile.beetlsql.common.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -12,6 +17,8 @@ import java.util.GregorianCalendar;
  * Created by zileShi on 2019/7/4 0004.
  **/
 public class TokenUtil {
+
+    private static final Log log = LogFactory.getLog(TokenUtil.class);
 
 
     /**
@@ -69,6 +76,24 @@ public class TokenUtil {
             cal.add(Calendar.SECOND, second);
         }
         return cal.getTime();
+    }
+
+
+    /**
+     * 返回前端json
+     * @param resp          回应
+     * @param result        结果
+     */
+    public static void writeJsonStr(HttpServletResponse resp, String result) {
+        try {
+            resp.setCharacterEncoding("UTF-8");
+            PrintWriter writer = resp.getWriter();
+            writer.write(result);
+            writer.close();
+        } catch (IOException var3) {
+            log.error("获取输出流失败", var3);
+        }
+
     }
 
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *  解决跨域维妮塔
+ *  解决跨域问题
  * Created by zileShi on 2019/7/12 0012.
  **/
 @Component

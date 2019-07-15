@@ -112,7 +112,7 @@ public abstract class BaseController<T> {
      * @throws Exception
      */
     @UserLoginToken  //token验证注解
-    @GetMapping(value = "/single")
+    @PostMapping(value = "/single")
     @ResponseBody
     public JSONResult single(Object key) throws Exception{
         T t = getBaseService().single(key);
@@ -129,7 +129,7 @@ public abstract class BaseController<T> {
      * @throws Exception
      */
     @UserLoginToken  //token验证注解
-    @GetMapping(value = "/judgeFieldUnique")
+    @PostMapping(value = "/judgeFieldUnique")
     @ResponseBody
     public JSONResult judgeFieldUnique(@RequestBody T entity) throws Exception{
         boolean result = getBaseService().judgeFieldUnique(entity);
@@ -148,7 +148,7 @@ public abstract class BaseController<T> {
      * @throws Exception
      */
     @UserLoginToken  //token验证注解
-    @GetMapping(value = "/allCount")
+    @PostMapping(value = "/allCount")
     @ResponseBody
     public JSONResult allCount() throws Exception{
         long result = getBaseService().allCount();
@@ -164,7 +164,7 @@ public abstract class BaseController<T> {
      * @throws Exception
      */
     @UserLoginToken  //token验证注解
-    @GetMapping(value = "/templateCount")
+    @PostMapping(value = "/templateCount")
     @ResponseBody
     public JSONResult templateCount(@RequestBody T entity) throws Exception{
         long result = getBaseService().templateCount(entity);
@@ -180,7 +180,7 @@ public abstract class BaseController<T> {
      * @throws Exception
      */
     @UserLoginToken  //token验证注解
-    @GetMapping(value = "/templateOne")
+    @PostMapping(value = "/templateOne")
     @ResponseBody
     public JSONResult templateOne(@RequestBody T entity) throws Exception{
         T result = getBaseService().templateOne(entity);
@@ -199,7 +199,7 @@ public abstract class BaseController<T> {
      * @throws Exception
      */
     @UserLoginToken  //token验证注解
-    @GetMapping(value = "/findTemplateListWithPage")
+    @PostMapping(value = "/findTemplateListWithPage")
     @ResponseBody
     public JSONResult findTemplateListWithPage(@RequestBody T entity,int start,int size) throws Exception{
         List<T> resultList = getBaseService().findTemplateList(entity,start,size);
@@ -215,7 +215,7 @@ public abstract class BaseController<T> {
      * @throws Exception
      */
     @UserLoginToken  //token验证注解
-    @GetMapping(value = "/findTemplateList")
+    @PostMapping(value = "/findTemplateList")
     @ResponseBody
     public JSONResult findTemplateList(@RequestBody T entity) throws Exception{
         List<T> resultList = getBaseService().findTemplateList(entity);
