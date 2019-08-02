@@ -43,3 +43,14 @@ condition
 	@}
 	
 	
+login
+===
+    SELECT
+    *
+    FROM
+    `user`
+    WHERE
+    username = #username#
+    and password = #password#
+    and is_active = 1
+	

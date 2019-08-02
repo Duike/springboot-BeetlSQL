@@ -1,12 +1,12 @@
 package com.zile.beetlsql.controller.login;
 
 import com.zile.beetlsql.common.annotations.UserLoginToken;
-import com.zile.beetlsql.common.utils.EmptyUtil;
-import com.zile.beetlsql.common.utils.JSONResult;
-import com.zile.beetlsql.common.utils.TokenUtil;
+import com.zile.beetlsql.common.utils.*;
 import com.zile.beetlsql.model.User;
 import com.zile.beetlsql.service.UserService;
 import net.sf.json.JSONObject;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +19,8 @@ import java.util.Date;
  **/
 @RestController
 public class LoginController {
+
+    private final static Log log = (Log) LogFactory.getLog(LoginController.class);
 
     @Autowired
     private UserService userService;
@@ -37,8 +39,7 @@ public class LoginController {
     @ResponseBody
     public JSONObject login(@RequestBody User user) {
         JSONObject jsonObject = new JSONObject();
-        user.setIsActive(1);
-        User userResult = userService.templateOne(user);
+        User userResult = userService.login(user);
 
         if (EmptyUtil.isEmpty(userResult)) {
             jsonObject.put("status", "fail");
