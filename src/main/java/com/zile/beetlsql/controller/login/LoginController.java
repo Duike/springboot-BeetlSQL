@@ -1,10 +1,10 @@
 package com.zile.beetlsql.controller.login;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zile.beetlsql.common.annotations.UserLoginToken;
 import com.zile.beetlsql.common.utils.*;
 import com.zile.beetlsql.model.User;
 import com.zile.beetlsql.service.UserService;
-import net.sf.json.JSONObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
