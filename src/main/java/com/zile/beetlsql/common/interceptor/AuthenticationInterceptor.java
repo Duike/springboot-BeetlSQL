@@ -13,6 +13,7 @@ import com.zile.beetlsql.model.User;
 import com.zile.beetlsql.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +26,7 @@ import java.lang.reflect.Method;
 /**
  * Created by zileShi on 2019/7/4 0004.
  **/
+@Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
 

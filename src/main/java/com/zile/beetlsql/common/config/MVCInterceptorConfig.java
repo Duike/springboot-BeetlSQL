@@ -1,5 +1,6 @@
 package com.zile.beetlsql.common.config;
 
+import com.zile.beetlsql.common.interceptor.AuthenticationInterceptor;
 import com.zile.beetlsql.common.interceptor.MVCInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +17,14 @@ public class MVCInterceptorConfig implements WebMvcConfigurer {
    @Autowired
    private MVCInterceptor mvcInterceptor;
 
+   @Autowired
+   private AuthenticationInterceptor authenticationInterceptor;
+
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截所有请求，除/login外，在MVCInterceptor类上作判断限制。
-        registry.addInterceptor(mvcInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
+        registry.addInterceptor(authenticationInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
     }
 
 }
