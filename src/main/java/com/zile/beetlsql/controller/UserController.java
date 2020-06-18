@@ -19,7 +19,7 @@ public class UserController extends BaseController<User> {
     @Autowired
     private UserService userService;
 
-    @UserLoginToken  //token验证注解
+
     @PostMapping(value = "/test")
     @ResponseBody
     public long test(){

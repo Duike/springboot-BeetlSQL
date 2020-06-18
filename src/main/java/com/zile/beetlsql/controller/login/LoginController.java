@@ -26,7 +26,7 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private JedisUtil jedisUtil;
 
 
     /**
@@ -46,15 +46,10 @@ public class LoginController {
             jsonObject.put("message", "登陆失败:用户名或密码错误");
             return jsonObject;
         } else {
-            //token生效开始时间
-            Date nowDate = new Date();
-            //token生效结束时间
-            //设置2小时后失效
-            Date clearTokenDate = TokenUtil.getAfterDate(nowDate, 0, 0, 0, 2, 0, 0);
             //创建token
-            String token = TokenUtil.getToken(String.valueOf(userResult.getId()), nowDate, clearTokenDate);
+            String token = TokenUtil.getToken(String.valueOf(userResult.getId()));
             //把新的token保存到redis中
-            stringRedisTemplate.opsForValue().set("userId_" + userResult.getId(), token);
+            jedisUtil.set(Constant.Redis.USERID + userResult.getId(), token, Constant.Redis.EXPIRE_TIME_TWO_MINUTE);
             //把密码置空
             userResult.setPassword("");
             jsonObject.put("status", "success");

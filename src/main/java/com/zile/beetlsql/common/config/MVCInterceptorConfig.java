@@ -1,7 +1,6 @@
 package com.zile.beetlsql.common.config;
 
 import com.zile.beetlsql.common.interceptor.AuthenticationInterceptor;
-import com.zile.beetlsql.common.interceptor.MVCInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,9 +12,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  **/
 @Configuration
 public class MVCInterceptorConfig implements WebMvcConfigurer {
-
-   @Autowired
-   private MVCInterceptor mvcInterceptor;
 
    @Autowired
    private AuthenticationInterceptor authenticationInterceptor;

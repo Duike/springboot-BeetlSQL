@@ -4,10 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.zile.beetlsql.common.annotations.PassToken;
 import com.zile.beetlsql.common.annotations.UserLoginToken;
+import com.zile.beetlsql.common.utils.Constant;
 import com.zile.beetlsql.common.utils.JSONResult;
+import com.zile.beetlsql.common.utils.JedisUtil;
 import com.zile.beetlsql.common.utils.TokenUtil;
 import com.zile.beetlsql.model.User;
 import com.zile.beetlsql.service.UserService;
@@ -34,7 +39,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     UserService userService;
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private JedisUtil jedisUtil;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
@@ -53,37 +58,42 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
         }
         //检查有没有需要用户权限的注解
-        if (method.isAnnotationPresent(UserLoginToken.class)) {
-            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
-            if (userLoginToken.required()) {
-                // 执行认证
-                if (token == null) {
-                    TokenUtil.writeJsonStr(httpServletResponse,JSON.toJSONString(JSONResult.fail("无token，请重新登录！")));
-                    return false;
-                }
-                // 获取 token 中的 user id
-                String userId = null;
-                try {
-                    userId = JWT.decode(token).getAudience().get(0);
-                } catch (JWTDecodeException j) {
-                    TokenUtil.writeJsonStr(httpServletResponse,JSON.toJSONString(JSONResult.fail("token不存在，请重新登录！")));
-                    return false;
-                }
-                User user = userService.single(userId);
-                if (user == null) {
-                    TokenUtil.writeJsonStr(httpServletResponse,JSON.toJSONString(JSONResult.fail("用户不存在，请重新登录！")));
-                    return false;
-                }
-                //验证token，通过redis获取最新的token来验证
-                String latestToken = stringRedisTemplate.opsForValue().get("userId_" + userId);
-                if (!token.equals(latestToken)){
-                    TokenUtil.writeJsonStr(httpServletResponse,JSON.toJSONString(JSONResult.fail("token已失效，请重新登录！")));
-                    return false;
-                }
-                return true;
-            }
+        // 执行认证
+        if (token == null) {
+            TokenUtil.writeJsonStr(httpServletResponse, JSON.toJSONString(JSONResult.fail("token不存在，请重新登录！")));
+            return false;
+        }
+        // 获取 token 中的 user id
+        String userId = null;
+        try {
+            userId = JWT.decode(token).getAudience().get(0);
+        } catch (JWTDecodeException j) {
+            TokenUtil.writeJsonStr(httpServletResponse, JSON.toJSONString(JSONResult.fail("token不存在，请重新登录！")));
+            return false;
+        }
+        User user = userService.single(userId);
+        if (user == null) {
+            TokenUtil.writeJsonStr(httpServletResponse, JSON.toJSONString(JSONResult.fail("用户不存在，请重新登录！")));
+            return false;
+        }
+        //验证token，通过redis获取最新的token来验证
+        String latestToken = jedisUtil.get(Constant.Redis.USERID + userId);
+        if (!token.equals(latestToken)) {
+            TokenUtil.writeJsonStr(httpServletResponse, JSON.toJSONString(JSONResult.fail("token已失效，请重新登录！")));
+            return false;
         }
         return true;
+
+        // 本地验证 token
+//        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userId)).build();
+//        try {
+//            jwtVerifier.verify(token);
+//        } catch (JWTVerificationException e) {
+//            TokenUtil.writeJsonStr(httpServletResponse, JSON.toJSONString(JSONResult.fail("token已失效，请重新登录！")));
+//            return false;
+//        }
+//        return true;
+
     }
 
     @Override
@@ -98,7 +108,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                                 HttpServletResponse httpServletResponse,
                                 Object o, Exception e) throws Exception {
     }
-
 
 
 }
