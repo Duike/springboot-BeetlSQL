@@ -1,8 +1,10 @@
 package com.zile.beetlsql.controller;
 
-import com.zile.beetlsql.model.User;
-import com.zile.beetlsql.controller.base.BaseController;
+import com.zile.beetlsql.common.utils.JSONResult;
 import com.zile.beetlsql.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,16 +15,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 **/
 @RestController
 @RequestMapping(value = "/user")
-public class UserController extends BaseController<User> {
+@Api(tags = "用户管理")
+public class UserController{
 
     @Autowired
     private UserService userService;
 
 
+    /**
+     * http://localhost:8080/duike/swagger-ui.html#/
+     * @return
+     */
     @PostMapping(value = "/test")
     @ResponseBody
-    public long test(){
-        return userService.allCount();
+    @ApiOperation("查询用户条数")
+    @ApiImplicitParams({
+            //@ApiImplicitParam(name = "id", value = "指定id", defaultValue = ""),
+            //@ApiImplicitParam(name = "address", value = "用户地址", defaultValue = "深圳", required = true)
+    }
+    )
+    public JSONResult test(){
+        long result = userService.allCount();
+        return JSONResult.success(result);
     }
 
 }
