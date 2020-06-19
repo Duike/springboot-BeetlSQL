@@ -1,6 +1,5 @@
 package com.zile.beetlsql.controller;
 
-import com.zile.beetlsql.common.annotations.UserLoginToken;
 import com.zile.beetlsql.model.User;
 import com.zile.beetlsql.controller.base.BaseController;
 import com.zile.beetlsql.service.UserService;

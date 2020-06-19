@@ -1,11 +1,9 @@
 package com.zile.beetlsql.controller.base;
 
 
-import com.zile.beetlsql.common.annotations.UserLoginToken;
 import com.zile.beetlsql.common.utils.JSONResult;
 import com.zile.beetlsql.service.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,7 +31,6 @@ public abstract class BaseController<T> {
      * @return              返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/insert")
     @ResponseBody
     public JSONResult insert(@RequestBody T entity) throws Exception{
@@ -52,7 +49,6 @@ public abstract class BaseController<T> {
      * @return              返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/updateTemplate")
     @ResponseBody
     public JSONResult updateTemplate(@RequestBody T entity) throws Exception{
@@ -71,7 +67,6 @@ public abstract class BaseController<T> {
      * @return              返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/update")
     @ResponseBody
     public JSONResult update(@RequestBody T entity) throws Exception{
@@ -91,7 +86,6 @@ public abstract class BaseController<T> {
      * @return           返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/delete")
     @ResponseBody
     public JSONResult delete(Object key) throws Exception{
@@ -111,7 +105,6 @@ public abstract class BaseController<T> {
      * @return      返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/single")
     @ResponseBody
     public JSONResult single(Object key) throws Exception{
@@ -128,7 +121,6 @@ public abstract class BaseController<T> {
      * @return                 返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/judgeFieldUnique")
     @ResponseBody
     public JSONResult judgeFieldUnique(@RequestBody T entity) throws Exception{
@@ -147,7 +139,6 @@ public abstract class BaseController<T> {
      * @return 返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/allCount")
     @ResponseBody
     public JSONResult allCount() throws Exception{
@@ -163,7 +154,6 @@ public abstract class BaseController<T> {
      * @return         返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/templateCount")
     @ResponseBody
     public JSONResult templateCount(@RequestBody T entity) throws Exception{
@@ -179,7 +169,6 @@ public abstract class BaseController<T> {
      * @return          返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/templateOne")
     @ResponseBody
     public JSONResult templateOne(@RequestBody T entity) throws Exception{
@@ -198,7 +187,6 @@ public abstract class BaseController<T> {
      * @return              返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/findTemplateListWithPage")
     @ResponseBody
     public JSONResult findTemplateListWithPage(@RequestBody T entity,int start,int size) throws Exception{
@@ -214,7 +202,6 @@ public abstract class BaseController<T> {
      * @return              返回信息
      * @throws Exception
      */
-    @UserLoginToken  //token验证注解
     @PostMapping(value = "/findTemplateList")
     @ResponseBody
     public JSONResult findTemplateList(@RequestBody T entity) throws Exception{

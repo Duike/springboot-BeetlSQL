@@ -44,6 +44,8 @@ public class User   {
 	创建时间
 	*/
 	private Date createDate ;
+
+	private String token;
 	
 	public User() {
 	}
@@ -167,6 +169,12 @@ public class User   {
 	public void setCreateDate(Date createDate ){
 		this.createDate = createDate;
 	}
-	
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

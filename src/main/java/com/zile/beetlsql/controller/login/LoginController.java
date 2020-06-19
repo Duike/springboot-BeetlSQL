@@ -1,7 +1,6 @@
 package com.zile.beetlsql.controller.login;
 
-import com.alibaba.fastjson.JSONObject;
-import com.zile.beetlsql.common.annotations.UserLoginToken;
+import com.zile.beetlsql.common.annotations.PassToken;
 import com.zile.beetlsql.common.utils.*;
 import com.zile.beetlsql.common.utils.redis.CommonCacheTime;
 import com.zile.beetlsql.common.utils.redis.RedisUtils;
@@ -37,14 +36,11 @@ public class LoginController {
      */
     @PostMapping(value = "/login")
     @ResponseBody
-    public JSONObject login(@RequestBody User user) {
-        JSONObject jsonObject = new JSONObject();
+    public JSONResult login(@RequestBody User user) {
         User userResult = userService.login(user);
 
         if (EmptyUtil.isEmpty(userResult)) {
-            jsonObject.put("status", "fail");
-            jsonObject.put("message", "登陆失败:用户名或密码错误");
-            return jsonObject;
+            return JSONResult.fail(Constant.Login.FAIL_PASSWORD);
         } else {
             //创建token
             String token = TokenUtil.getToken(String.valueOf(userResult.getId()));
@@ -52,11 +48,7 @@ public class LoginController {
             redisUtils.set(Constant.Redis.USERID + userResult.getId(), token, CommonCacheTime.TWO_HOUR);
             //把密码置空
             userResult.setPassword("");
-            jsonObject.put("status", "success");
-            jsonObject.put("message", "登录成功");
-            jsonObject.put("user", userResult);
-            jsonObject.put("token", token);
-            return jsonObject;
+            return JSONResult.success(Constant.Login.SUCCESS_LOGIN,userResult);
         }
     }
 
@@ -67,25 +59,21 @@ public class LoginController {
      */
     @PostMapping(value = "/loginOut")
     @ResponseBody
-    public JSONObject loginOut(String userId) {
-        JSONObject jsonObject = new JSONObject();
+    public JSONResult loginOut(String userId) {
         try {
             redisUtils.del(Constant.Redis.USERID + userId);
         }catch (Exception e){
-            jsonObject.put("status", "fail");
-            jsonObject.put("message", "退出失败！");
+            return JSONResult.fail(Constant.Login.FAIL_LOGIN_OUT);
         }
-        jsonObject.put("status", "success");
-        jsonObject.put("message", "退出成功！");
-        return jsonObject;
+        return JSONResult.success(Constant.Login.SUCCESS_LOGIN_OUT);
     }
 
 
 
-    @UserLoginToken
+    @PassToken  //关闭token验证
     @GetMapping("/getMessage")
-    public String getMessage() {
-        return "你已通过验证";
+    public JSONResult getMessage() {
+        return JSONResult.success("你已通过验证");
     }
 
 }

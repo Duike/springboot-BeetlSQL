@@ -6,6 +6,9 @@ package com.zile.beetlsql.common.utils;
  **/
 public class Constant {
 
+    /**
+     * redis常数整合
+     */
     public interface Redis {
         String USERID = "userId:";
 
@@ -16,6 +19,17 @@ public class Constant {
         Integer EXPIRE_TIME_DAY = 60 * 60 * 24;// 过期时间, 一天
         Integer EXPIRE_TIME_MONTH = 60 * 60 * 24 * 15;// 过期时间, 一月
 
+    }
+
+    /**
+     * 登录常数整合
+     */
+    public interface Login{
+        String FAIL_PASSWORD = "登陆失败:用户名或密码错误";
+        String SUCCESS_LOGIN = "登录成功";
+
+        String SUCCESS_LOGIN_OUT = "退出成功";
+        String FAIL_LOGIN_OUT = "退出失败";
     }
 
 }
