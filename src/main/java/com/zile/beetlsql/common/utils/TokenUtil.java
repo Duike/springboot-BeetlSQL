@@ -32,9 +32,7 @@ public class TokenUtil {
         Date nowDate = new Date();
         //token生效结束时间
         //设置2小时后失效
-        //Date clearTokenDate = getAfterDate(nowDate, 0, 0, 0, 2, 0, 0);
-        //设置2分钟后失效
-        Date clearTokenDate = getAfterDate(nowDate, 0, 0, 0, 0, 2, 0);
+        Date clearTokenDate = getAfterDate(nowDate, 0, 0, 0, 2, 0, 0);
 
         String token = "";
         token = JWT.create()
