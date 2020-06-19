@@ -20,7 +20,10 @@ public class MVCInterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截所有请求，除/login外，在MVCInterceptor类上作判断限制。
-        registry.addInterceptor(authenticationInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
+        registry.addInterceptor(authenticationInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/loginOut");
     }
 
 }

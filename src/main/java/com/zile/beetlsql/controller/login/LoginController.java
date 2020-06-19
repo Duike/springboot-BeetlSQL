@@ -3,15 +3,16 @@ package com.zile.beetlsql.controller.login;
 import com.alibaba.fastjson.JSONObject;
 import com.zile.beetlsql.common.annotations.UserLoginToken;
 import com.zile.beetlsql.common.utils.*;
+import com.zile.beetlsql.common.utils.redis.CommonCacheTime;
+import com.zile.beetlsql.common.utils.redis.RedisUtils;
 import com.zile.beetlsql.model.User;
 import com.zile.beetlsql.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+
 
 
 /**
@@ -26,8 +27,7 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
-    private JedisUtil jedisUtil;
-
+    private RedisUtils redisUtils;
 
     /**
      * 登录
@@ -49,7 +49,7 @@ public class LoginController {
             //创建token
             String token = TokenUtil.getToken(String.valueOf(userResult.getId()));
             //把新的token保存到redis中
-            jedisUtil.set(Constant.Redis.USERID + userResult.getId(), token, Constant.Redis.EXPIRE_TIME_TWO_MINUTE);
+            redisUtils.set(Constant.Redis.USERID + userResult.getId(), token, CommonCacheTime.TWO_HOUR);
             //把密码置空
             userResult.setPassword("");
             jsonObject.put("status", "success");
@@ -59,6 +59,27 @@ public class LoginController {
             return jsonObject;
         }
     }
+
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @PostMapping(value = "/loginOut")
+    @ResponseBody
+    public JSONObject loginOut(String userId) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            redisUtils.del(Constant.Redis.USERID + userId);
+        }catch (Exception e){
+            jsonObject.put("status", "fail");
+            jsonObject.put("message", "退出失败！");
+        }
+        jsonObject.put("status", "success");
+        jsonObject.put("message", "退出成功！");
+        return jsonObject;
+    }
+
 
 
     @UserLoginToken

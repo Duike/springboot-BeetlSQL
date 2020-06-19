@@ -29,3 +29,6 @@ beetlsql:
   sqlPath: /sql
   basePackage: com.zile.beetlsql.mapper
 
+
+#是否忽略token验证:true/false
+isIgnoreToken: false
