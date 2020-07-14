@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 **/
 @RestController
 @RequestMapping(value = "/${ClassName?uncap_first}")
-public class ${ClassName}Controller extends BaseController<${ClassName}> {
+public class ${ClassName}Controller {
 
     @Autowired
     private ${ClassName}Service ${ClassName?uncap_first}Service;
