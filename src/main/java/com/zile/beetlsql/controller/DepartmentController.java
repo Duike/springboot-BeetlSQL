@@ -1,5 +1,6 @@
 package com.zile.beetlsql.controller;
 
+import com.zile.beetlsql.model.Department;
 import com.zile.beetlsql.service.DepartmentService;
 import com.zile.beetlsql.websocket.WebSocket;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,17 @@ public class DepartmentController{
         String text=userName+" 你好！ 这是websocket单人发送！";
         webSocket.sendOneMessage(userName,text);
         return text;
+    }
+
+
+    @PostMapping("test111")
+    public String test111(@RequestParam(defaultValue = "1") Long current, @RequestParam(defaultValue = "10") Long size
+                            , @RequestBody Department department){
+
+        System.out.println(current);
+        System.out.println(size);
+        System.out.println(department);
+        return null;
     }
 
 
